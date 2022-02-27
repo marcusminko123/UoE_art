@@ -61,10 +61,10 @@ titles <- page %>%
 # scrape links -----------------------------------------------------------------
 
 links <- page %>%
-  html_nodes(".iteminfo") %>%
-  html_node("h3 a") %>%
-  html_attr("href") %>%
-  str_replace("./", "collections.ed.ac.uk/art/")
+     html_nodes(".iteminfo") %>%
+     html_node("h3 a") %>%
+     html_attr("href") %>%
+     str_replace("./", "collections.ed.ac.uk/art/")
 
 # scrape artists ---------------------------------------------------------------
 
