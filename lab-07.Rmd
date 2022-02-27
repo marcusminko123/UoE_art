@@ -12,7 +12,7 @@ library(tidyverse)
 library(skimr)
 ```
 
-```{r load-data, message = FALSE, eval = FALSE}
+```{r load-data, message = FALSE}
 # Remove eval = FALSE or set it to TRUE once data is ready to be loaded
 uoe_art <- read_csv("data/uoe-art.csv")
 ```
