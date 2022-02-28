@@ -36,13 +36,37 @@ skim(uoe_art)
 
 uoe_art %>%
   na.omit() %>% 
-  ggplot(aes(x = year)) + geom_histogram(binwidth = 5) + xlim(1818, 2020)
+  ggplot(aes(x = year)) + 
+  geom_histogram(binwidth = 10) + 
+  xlim(1818, 2020) +
+  theme_linedraw() +
+  labs(
+        title = "Number of Artworks by Year", 
+        subtitle = "University of Edinburgh",
+        x = "Year", 
+        y = "# of Artworks")
 
+#replace the erroneous year 2 with correct 1964
 
+uoe_art <- uoe_art %>% 
+  mutate(
+        year = replace(year, 
+                       year == 2, 1964))
+
+#Which artist has the most art pieces in this collection
+
+uoe_art %>% 
+      count(artist, sort = TRUE)
+
+#Emma Gillies; my guess is that this artist is local to Edinburgh
+
+#How many titles contain the word "Child" or "child"
+
+uoe_art %>% 
+    filter(
+          str_detect(
+            title, "Child | child")
+           )
+# 4
 ```
 
-### Exercise 11
-
-...
-
-Add exercise headings as needed.

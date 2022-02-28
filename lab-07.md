@@ -72,7 +72,15 @@ Data summary
 
 uoe_art %>%
   na.omit() %>% 
-  ggplot(aes(x = year)) + geom_histogram(binwidth = 5) + xlim(1818, 2020)
+  ggplot(aes(x = year)) + 
+  geom_histogram(binwidth = 10) + 
+  xlim(1818, 2020) +
+  theme_linedraw() +
+  labs(
+        title = "Number of Artworks by Year", 
+        subtitle = "University of Edinburgh",
+        x = "Year", 
+        y = "# of Artworks")
 ```
 
     ## Warning: Removed 1 rows containing non-finite values (stat_bin).
@@ -81,8 +89,55 @@ uoe_art %>%
 
 ![](lab-07_files/figure-gfm/skim-1.png)<!-- -->
 
-### Exercise 11
+``` r
+#replace the erroneous year 2 with correct 1964
 
-…
+uoe_art <- uoe_art %>% 
+  mutate(
+        year = replace(year, 
+                       year == 2, 1964))
 
-Add exercise headings as needed.
+#Which artist has the most art pieces in this collection
+
+uoe_art %>% 
+      count(artist, sort = TRUE)
+```
+
+    ## # A tibble: 1,101 × 2
+    ##    artist               n
+    ##    <chr>            <int>
+    ##  1 Unknown            349
+    ##  2 Emma Gillies       144
+    ##  3 <NA>               112
+    ##  4 John Bellany        21
+    ##  5 Ann F Ward          19
+    ##  6 Boris Bućan         16
+    ##  7 Gordon Bryce        16
+    ##  8 Marjorie Wallace    16
+    ##  9 William Gillon      16
+    ## 10 Zygmunt Bukowski    16
+    ## # … with 1,091 more rows
+
+``` r
+#Emma Gillies; my guess is that this artist is local to Edinburgh
+
+#How many titles contain the word "Child" or "child"
+
+uoe_art %>% 
+    filter(
+          str_detect(
+            title, "Child | child")
+           )
+```
+
+    ## # A tibble: 4 × 4
+    ##   title                                       artist               year link    
+    ##   <chr>                                       <chr>               <dbl> <chr>   
+    ## 1 "Virgin and Child "                         Unknown                NA collect…
+    ## 2 "Virgin and Child "                         Unknown                NA collect…
+    ## 3 "Woman with Child and Still Life "          Catherine I. McIvor  1938 collect…
+    ## 4 "Untitled - Portrait of a Woman and Child " William Gillon         NA collect…
+
+``` r
+# 4
+```
